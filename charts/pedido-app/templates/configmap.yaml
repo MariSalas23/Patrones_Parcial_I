@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: backend-config
 data:
-  DB_HOST: pedido-app-postgresql
+  DB_HOST: pedido-postgresql
   DB_PORT: "5432"
   DB_NAME: pedidosdb
+  DB_USER: postgres

@@ -7,15 +7,18 @@ spec:
   selector:
     matchLabels:
       app: backend
+
   template:
     metadata:
       labels:
         app: backend
+
     spec:
       containers:
         - name: backend
           image: pedido-backend:1.0
           imagePullPolicy: Never
+
           ports:
             - containerPort: 8080
 
@@ -24,20 +27,6 @@ spec:
                 name: backend-config
             - secretRef:
                 name: backend-secret
-
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 30
-            periodSeconds: 10
-
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 20
 
           resources:
             requests:

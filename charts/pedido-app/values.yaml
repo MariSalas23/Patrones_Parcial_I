@@ -1,15 +1,33 @@
+global:
+  security:
+    allowInsecureImages: true
+
 postgresql:
+  enabled: true
+
+  fullnameOverride: pedido-postgresql
+
   image:
     registry: docker.io
-    repository: bitnami/postgresql
-    tag: 16.4.0
+    repository: bitnamilegacy/postgresql
+    tag: 16.4.0-debian-12-r9
 
   auth:
+    database: pedidosdb
     username: postgres
     password: postgres
-    database: pedidosdb
+    postgresPassword: postgres
 
   primary:
     persistence:
-      enabled: true
-      size: 1Gi
+      enabled: false
+
+    initdb:
+      scripts:
+        init.sql: |
+          CREATE TABLE IF NOT EXISTS pedidos (
+            id SERIAL PRIMARY KEY,
+            cliente VARCHAR(100),
+            producto VARCHAR(100),
+            cantidad INT
+          );
