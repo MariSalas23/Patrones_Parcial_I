@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
   const [pedidos, setPedidos] = useState([]);
@@ -65,10 +66,10 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "30px", fontFamily: "Arial" }}>
+    <div className="container">
       <h1>Sistema de Gestión de Pedidos</h1>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+      <form onSubmit={handleSubmit} className="formulario">
         <input
           name="cliente"
           placeholder="Cliente"
@@ -76,6 +77,7 @@ function App() {
           onChange={handleChange}
           required
         />
+
         <input
           name="producto"
           placeholder="Producto"
@@ -83,6 +85,7 @@ function App() {
           onChange={handleChange}
           required
         />
+
         <input
           name="cantidad"
           type="number"
@@ -91,27 +94,31 @@ function App() {
           onChange={handleChange}
           required
         />
+
         <button type="submit">Crear Pedido</button>
       </form>
 
       <h2>Pedidos Registrados</h2>
 
       {pedidos.length === 0 ? (
-        <p>No hay pedidos aún.</p>
+        <p className="vacio">No hay pedidos aún.</p>
       ) : (
-        <ul>
+        <div className="lista">
           {pedidos.map((p) => (
-            <li key={p.id}>
-              {p.cliente} - {p.producto} ({p.cantidad})
+            <div className="pedido" key={p.id}>
+              <span>
+                <strong>{p.cliente}</strong> pidió <strong>{p.producto}</strong> ({p.cantidad})
+              </span>
+
               <button
+                className="eliminar"
                 onClick={() => eliminarPedido(p.id)}
-                style={{ marginLeft: "10px" }}
               >
                 Eliminar
               </button>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
