@@ -2,6 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: backend-config
+  labels:
+    app: pedidos
+    component: backend
 data:
   DB_HOST: pedido-postgresql
   DB_PORT: "5432"

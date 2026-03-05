@@ -2,35 +2,42 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  labels:
+    app: pedidos
+    component: backend
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: backend
-
   template:
     metadata:
       labels:
         app: backend
-
+        component: backend
+        app.kubernetes.io/name: pedidos
     spec:
       containers:
         - name: backend
           image: pedido-backend:1.0
           imagePullPolicy: Never
-
           ports:
             - containerPort: 8080
-
           envFrom:
             - configMapRef:
                 name: backend-config
             - secretRef:
                 name: backend-secret
-
           resources:
             requests:
               cpu: "100m"
               memory: "128Mi"
             limits:
               memory: "512Mi"
+          volumeMounts:
+            - name: pedidos-storage
+              mountPath: /data
+      volumes:
+        - name: pedidos-storage
+          persistentVolumeClaim:
+            claimName: pedidos-pvc
