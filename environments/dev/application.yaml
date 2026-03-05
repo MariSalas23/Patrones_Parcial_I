@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/MariSalas23/Patrones_Parcial_I.git
-    targetRevision: master
+    targetRevision: main
     path: charts/pedido-app
     helm:
       releaseName: pedido-app
