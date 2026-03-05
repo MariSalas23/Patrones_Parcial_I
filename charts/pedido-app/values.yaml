@@ -2,6 +2,35 @@ global:
   security:
     allowInsecureImages: true
 
+frontend:
+  image:
+    repository: pedido-frontend
+    tag: "1.0"
+  replicas: 2
+  service:
+    port: 80
+
+backend:
+  image:
+    repository: pedido-backend
+    tag: "1.0"
+  replicas: 2
+  service:
+    port: 80
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      memory: "512Mi"
+
+database:
+  host: pedido-postgresql
+  port: 5432
+  name: pedidosdb
+  user: postgres
+  password: postgres
+
 postgresql:
   enabled: true
 
@@ -20,7 +49,8 @@ postgresql:
 
   primary:
     persistence:
-      enabled: false
+      enabled: true
+      size: 1Gi
 
     initdb:
       scripts:

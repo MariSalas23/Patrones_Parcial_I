@@ -5,10 +5,13 @@ metadata:
   labels:
     app: pedidos
     component: storage
+
 spec:
   capacity:
     storage: 1Gi
+
   accessModes:
     - ReadWriteOnce
+
   hostPath:
     path: /data/pedidos

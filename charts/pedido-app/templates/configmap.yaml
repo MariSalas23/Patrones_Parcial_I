@@ -5,8 +5,9 @@ metadata:
   labels:
     app: pedidos
     component: backend
+
 data:
-  DB_HOST: pedido-postgresql
-  DB_PORT: "5432"
-  DB_NAME: pedidosdb
-  DB_USER: postgres
+  DB_HOST: {{ .Values.database.host }}
+  DB_PORT: "{{ .Values.database.port }}"
+  DB_NAME: {{ .Values.database.name }}
+  DB_USER: {{ .Values.database.user }}

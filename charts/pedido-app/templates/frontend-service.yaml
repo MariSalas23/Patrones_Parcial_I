@@ -5,10 +5,13 @@ metadata:
   labels:
     app: pedidos
     component: frontend
+
 spec:
   type: ClusterIP
+
   selector:
     app: frontend
+
   ports:
-    - port: 80
+    - port: {{ .Values.frontend.service.port }}
       targetPort: 80
