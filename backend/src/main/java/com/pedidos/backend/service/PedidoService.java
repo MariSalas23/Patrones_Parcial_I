@@ -1,6 +1,5 @@
 package com.pedidos.backend.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -8,10 +7,13 @@ import com.pedidos.backend.model.Pedido;
 import com.pedidos.backend.repository.PedidoRepository;
 
 @Service
-@RequiredArgsConstructor
 public class PedidoService {
 
     private final PedidoRepository repository;
+
+    public PedidoService(PedidoRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Pedido> listar() {
         return repository.findAll();

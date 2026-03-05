@@ -2,23 +2,10 @@ package com.pedidos.backend.model;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "pedidos")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Pedido {
 
     @Id
@@ -34,5 +21,51 @@ public class Pedido {
     @PrePersist
     public void prePersist() {
         this.fecha = LocalDateTime.now();
+    }
+
+    public Pedido() {}
+
+    public Pedido(Long id, String cliente, String producto, Integer cantidad, LocalDateTime fecha) {
+        this.id = id;
+        this.cliente = cliente;
+        this.producto = producto;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getProducto() {
+        return producto;
+    }
+
+    public void setProducto(String producto) {
+        this.producto = producto;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 }

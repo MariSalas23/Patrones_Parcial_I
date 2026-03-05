@@ -3,9 +3,11 @@ kind: Ingress
 metadata:
   name: pedido-ingress
 spec:
+  ingressClassName: nginx
   rules:
     - http:
         paths:
+
           - path: /api
             pathType: Prefix
             backend:
@@ -13,6 +15,7 @@ spec:
                 name: backend-service
                 port:
                   number: 80
+
           - path: /
             pathType: Prefix
             backend:
