@@ -1,0 +1,15 @@
+postgresql:
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 16.4.0
+
+  auth:
+    username: postgres
+    password: postgres
+    database: pedidosdb
+
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
