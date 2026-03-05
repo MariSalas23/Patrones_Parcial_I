@@ -15,10 +15,6 @@ Thumbs.db
 # K8s
 .kube/
 
-# Helm
-charts/pedido-app/charts/
-charts/pedido-app/*.tgz
-
 # Node
 node_modules/
 
