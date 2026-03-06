@@ -133,16 +133,74 @@ kubectl get ingress
 
 ### 3.2. Cómo está configurado ArgoCD para sincronizar 
 
+Para automatizar el despliegue de la aplicación, se utilizó ArgoCD, una herramienta de GitOps que permite sincronizar automáticamente el estado del clúster de Kubernetes con la configuración almacenada en un repositorio Git [2]. De esta forma, cualquier cambio realizado en los archivos del repositorio se aplica automáticamente en el clúster sin necesidad de ejecutar comandos manuales de despliegue.
+
+#### 3.2.1. Instalación
+
+Primero, se crea el namespace donde se instalará ArgoCD y se despliegan sus componentes oficiales:
+
+```Bash
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+Luego, se verifica que los pods del sistema estén en ejecución:
+
+```Bash
 kubectl get pods -n argocd
+```
+
+#### 3.2.2. Acceso a la interfaz de ArgoCD
+
+Para acceder a la interfaz web de ArgoCD, se realiza un port-forward al servicio del servidor:
+
+```Bash
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+Posteriormente, se obtiene la contraseña inicial del usuario administrador:
+
+```Bash
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode
+```
+Con esta contraseña es posible acceder a la interfaz web desde el navegador en *https://localhost:8080*. El usuario es *admin*.
+
+#### 3.2.3. Configuración de aplicaciones por entorno
+
+El proyecto define dos entornos independientes:
+
+* Desarrollo (dev)
+* Producción (prod)
+
+Cada entorno se configura mediante un archivo application.yaml dentro del directorio *environments/*, y para registrar las aplicaciones en ArgoCD se deben ejecutar los siguientes comandos:
+
+```Bash
 kubectl apply -f environments/dev/application.yaml
 kubectl apply -f environments/prod/application.yaml
+```
+Una vez aplicados, ArgoCD crea automáticamente las aplicaciones:
+
+* pedido-app-dev
+* pedido-app-prod
+
+Se puede verificar el despliegue con:
+
+```Bash
 kubectl get pods -n pedido-dev
 kubectl get pods -n pedido-prod
-kubectl port-forward svc/argocd-server -n argocd 8080:443
-kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode (bash)
-kubectl delete ingress pedido-ingress -n default
+```
+#### 3.2.4. Sincronización automática
+
+ArgoCD monitorea continuamente el repositorio Git configurado, aproximadamente cada 3 minutos. Cuando se detecta un cambio en los archivos del chart o en los archivos values.yaml, ArgoCD aplica automáticamente esos cambios en el clúster de Kubernetes. Esto es posible gracias a los *application.yaml*, que incluyen la siguiente configuración:
+
+```Yaml
+spec:
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+```
+* **putomated:** Activa la sincronización automática entre Git y el clúster.
+* **prune: true:** Elimina del clúster los recursos que ya no existan en el repositorio Git.
+* **selfHeal: true:** Si se cambia manualmente algo en Kubernetes, ArgoCD lo vuelve a ajustar al estado definido en Git.
 
 ### 3.3. Video de funcionamiento de ArgoCD
 
