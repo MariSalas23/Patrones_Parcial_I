@@ -24,6 +24,24 @@ El objetivo del proyecto es demostrar el uso de herramientas modernas de contene
 - [Helm](https://helm.sh/docs/intro/install/)
 - [ArgoCD CLI](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
 
+### 1.3. Estructura del proyecto
+
+```
+Patrones_Parcial_I/
+├── backend/                          # Spring Boot REST API (Java 17)
+├── frontend/                         # React + Vite frontend (nginx)
+├── charts/
+│   └── pedido-app/                   # Root Helm chart
+│       ├── Chart.yaml
+│       ├── values.yaml               # Default values
+│       ├── values-dev.yaml           # Dev environment overrides
+│       ├── values-prod.yaml          # Prod environment overrides
+│       └── charts/
+└── environments/
+    ├── dev/application.yaml          # ArgoCD Application for dev
+    └── prod/application.yaml         # ArgoCD Application for prod
+```
+
 ## 2. Instalación
 
 ### 2.1. Comandos
