@@ -1,23 +1,37 @@
 backend:
   image:
+    repository: pedido-backend
     tag: "1.0"
-  replicaCount: 1
+
+  replicas: 1
+
+  service:
+    port: 80
+
   resources:
     requests:
       cpu: "100m"
       memory: "256Mi"
     limits:
       memory: "512Mi"
+
   hpa:
     enabled: true
     minReplicas: 1
     maxReplicas: 3
     targetCPUUtilizationPercentage: 70
 
+
 frontend:
   image:
+    repository: pedido-frontend
     tag: "1.0"
-  replicaCount: 1
+
+  replicas: 1
+
+  service:
+    port: 80
+
   resources:
     requests:
       cpu: "50m"
@@ -25,11 +39,10 @@ frontend:
     limits:
       memory: "128Mi"
 
-db:
-  postgresql:
-    primary:
-      persistence:
-        size: 1Gi
+postgresql:
+  primary:
+    persistence:
+      size: 1Gi
 
 ingress:
-  host: "pedido-app-dev.local"
+  host: dev.pedidos.local

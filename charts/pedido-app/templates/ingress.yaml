@@ -10,7 +10,8 @@ spec:
   ingressClassName: nginx
 
   rules:
-    - http:
+    - host: {{ .Values.ingress.host }}
+      http:
         paths:
 
           - path: /api
