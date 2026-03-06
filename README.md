@@ -83,7 +83,7 @@ kubectl get pods
 ```
 La aplicación se puede abrir desde: http://localhost/
 
-### 2.2. Video de aplicación de gestión de pedidos
+### 2.2. Video funcionamiento end-to-end (con persistencia)
 
 [Click aquí para visualizar](https://www.canva.com/design/DAHDJACBzE8/336A2Tnfu8NaBhpKfWJ6ng/watch?utm_content=DAHDJACBzE8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h85ee36fb1e)
 
