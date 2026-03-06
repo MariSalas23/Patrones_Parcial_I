@@ -237,7 +237,7 @@ Las rutas están configuradas de la siguiente forma:
 
 #### 3.4.1. Frontend
 
-El frontend corresponde a una aplicación desarrollada en React, la cual permite crear, visualizar, editar y eliminar pedidos desde una interfaz web. El acceso se realiza a través de: *http://<INGRESS-IP>/*
+El frontend corresponde a una aplicación desarrollada en React, la cual permite crear, visualizar, editar y eliminar pedidos desde una interfaz web. El acceso se realiza a través de: http://<INGRESS-IP>/
 
 #### 3.4.2. Backend
 
