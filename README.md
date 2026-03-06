@@ -209,7 +209,37 @@ spec:
 
 ### 3.4. Endpoints de acceso (frontend y backend)
 
-.
+La aplicación se expone mediante un **Ingress de Kubernetes**, el cual enruta las solicitudes hacia los servicios correspondientes dentro del clúster. De esta manera, el usuario puede acceder al frontend desde el navegador, mientras que las solicitudes dirigidas a la API son enviadas al backend.
+
+Las rutas están configuradas de la siguiente forma:
+
+* **/** : Frontend
+* **/api/** : Backend
+
+#### 3.4.1. Frontend
+
+El frontend corresponde a una aplicación desarrollada en React, la cual permite crear, visualizar, editar y eliminar pedidos desde una interfaz web. El acceso se realiza a través de: *http://<INGRESS-IP>/*
+
+#### 3.4.2. Backend
+
+El backend está desarrollado en Spring Boot (Maven) y expone una API REST encargada de gestionar los pedidos almacenados en la base de datos PostgreSQL. El controlador principal define la ruta base: */api/pedidos*
+
+A partir de esta ruta se exponen los siguientes endpoints:
+
+| Método | Endpoint | Descripción |
+|------|------|------|
+| GET | `/api/pedidos` | Obtiene la lista de todos los pedidos |
+| GET | `/api/pedidos/{id}` | Obtiene un pedido específico por su ID |
+| POST | `/api/pedidos` | Crea un nuevo pedido |
+| PUT | `/api/pedidos/{id}` | Actualiza un pedido existente |
+| DELETE | `/api/pedidos/{id}` | Elimina un pedido |
+
+#### 3.4.3. Flujo de funcionamiento
+
+1. El usuario accede al frontend desde el navegador.
+2. El frontend envía solicitudes HTTP a la API del backend.
+3. El backend procesa la solicitud y realiza operaciones en la base de datos PostgreSQL.
+4. La respuesta se devuelve al frontend y la interfaz se actualiza con la información almacenada.
 
 ### 3.5. Video de funcionamiento general
 
