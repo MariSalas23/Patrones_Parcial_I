@@ -125,6 +125,7 @@ helm install pedido .
 El primer comando descarga e instala las dependencias definidas en el archivo *Chart.yaml*, en este caso el chart de PostgreSQL. El segundo comando instala la aplicación en el clúster de Kubernetes utilizando la configuración definida en el chart. Una vez instalado el chart, Kubernetes creará automáticamente todos los recursos definidos en las plantillas dentro de la carpeta templates, incluyendo los deployments del frontend y backend, los servicios de red, el Ingress y la base de datos.
 
 Si todos los pods se encuentran en estado Running, la aplicación estará disponible a través del Ingress configurado en el clúster. Se puede verificar el estado con los siguientes comandos:
+
 ```Bash
 kubectl get pods
 kubectl get services
