@@ -80,13 +80,8 @@ helm install pedido .
 
 # Verificar pods
 kubectl get pods
-
-# Abrir acceso externo (dejar corriendo)
-minikube tunnel
-
-# Obtener URL del ingress (en otra consola y dejar corriendo)
-minikube service ingress-nginx-controller -n ingress-nginx --url
 ```
+La aplicación se puede abrir desde: http://localhost/
 
 ### 2.2. Video de aplicación de gestión de pedidos
 
