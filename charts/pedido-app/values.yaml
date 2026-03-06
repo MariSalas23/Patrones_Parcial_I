@@ -70,3 +70,7 @@ postgresql:
             producto VARCHAR(100),
             cantidad INT
           );
+
+ingress:
+  enabled: true
+  host: localhost
