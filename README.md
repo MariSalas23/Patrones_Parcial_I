@@ -26,6 +26,18 @@ kubectl get pods
 minikube tunnel
 minikube service ingress-nginx-controller -n ingress-nginx --url
 
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl get pods -n argocd
+kubectl apply -f environments/dev/application.yaml
+kubectl apply -f environments/prod/application.yaml
+kubectl get pods -n pedido-dev
+kubectl get pods -n pedido-prod
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 --decode (bash)
+kubectl delete ingress pedido-ingress -n default
+Presionar sync
+
 ### Cómo instalar el chart manualmente con Helm 
 
 .
