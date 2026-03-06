@@ -27,7 +27,7 @@ frontend:
     repository: pedido-frontend
     tag: "1.0"
 
-  replicas: 1
+  replicas: 2
 
   service:
     port: 80
