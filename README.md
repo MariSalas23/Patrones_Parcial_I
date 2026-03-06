@@ -10,29 +10,53 @@ El objetivo del proyecto es demostrar el uso de herramientas modernas de contene
 
 ## 2. Instalación
 
+### 2.1. Comandos
+
 Para lograr abrir la aplicación, se deben ingresar los siguientes comandos:
 
 ```Powershell
+# Iniciar Minikube
 minikube start
+
+# Usar Docker de Minikube
 & minikube -p minikube docker-env --shell powershell | Invoke-Expression
+
+# Construir backend
 cd backend
 mvn clean package -DskipTests
-cd ...
+cd ..
 docker build -t pedido-backend:1.0 ./backend
+
+# Construir frontend
 docker build -t pedido-frontend:1.0 ./frontend
-cd charts/pedido-app
-helm dependency build
-helm install pedido .
+
+# Cargar imágenes en Minikube
 minikube image load pedido-backend:1.0
 minikube image load pedido-frontend:1.0
+
+# Habilitar ingress
 minikube addons enable ingress
-kubectl get pods -n ingress-nginx
+
+# Construir dependencias del chart
+cd charts/pedido-app
+helm dependency build
+
+# Instalar la aplicación con Helm
+helm install pedido .
+
+# Verificar pods
 kubectl get pods
+
+# Abrir acceso externo
 minikube tunnel
+
+# Obtener URL del ingress
 minikube service ingress-nginx-controller -n ingress-nginx --url
 ```
 
-### 2.1. Video de funcionamiento de aplicación
+### 2.2. Video de funcionamiento de aplicación
+
+[Click aquí para visualizar]()
 
 ## 3. Funcionamiento
 
