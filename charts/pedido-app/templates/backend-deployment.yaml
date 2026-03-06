@@ -7,7 +7,7 @@ metadata:
     component: backend
 
 spec:
-  replicas: {{ .Values.backend.replicas }}
+  replicas: {{ .Values.backend.replicas | default 2 }}
 
   selector:
     matchLabels:
@@ -33,8 +33,10 @@ spec:
             - secretRef:
                 name: backend-secret
 
+          {{- if .Values.backend.resources }}
           resources:
 {{ toYaml .Values.backend.resources | indent 12 }}
+          {{- end }}
 
           volumeMounts:
             - name: pedidos-storage
