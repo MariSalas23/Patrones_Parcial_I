@@ -1,4 +1,4 @@
-**Nombres:** Juliana Katherin Moreno Carvajal y Mariana Salas Gutiérrez
+**Nombres:** Katherin Juliana Moreno Carvajal y Mariana Salas Gutiérrez
 
 # Parcial I: Patrones Arquitectónicos Avanzados
 
@@ -10,7 +10,7 @@ El objetivo del proyecto es demostrar el uso de herramientas modernas de contene
 
 ### 1.1. Aplicación
 
-| Component | Technology | Port |
+| Componente | Tecnología | Puerto |
 |---|---|---|
 | Backend | Spring Boot 3 + JPA | 8080 |
 | Frontend | React/Vite + nginx | 80 |
@@ -88,9 +88,9 @@ minikube tunnel
 minikube service ingress-nginx-controller -n ingress-nginx --url
 ```
 
-### 2.2. Video de funcionamiento de aplicación
+### 2.2. Video de aplicación de gestión de pedidos
 
-[Click aquí para visualizar]()
+[Click aquí para visualizar](https://www.canva.com/design/DAHDJACBzE8/336A2Tnfu8NaBhpKfWJ6ng/watch?utm_content=DAHDJACBzE8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h85ee36fb1e)
 
 ## 3. Funcionamiento
 
@@ -140,6 +140,7 @@ cd charts/pedido-app
 helm dependency build
 helm install pedido .
 ```
+
 El primer comando descarga e instala las dependencias definidas en el archivo *Chart.yaml*, en este caso el chart de PostgreSQL. El segundo comando instala la aplicación en el clúster de Kubernetes utilizando la configuración definida en el chart. Una vez instalado el chart, Kubernetes creará automáticamente todos los recursos definidos en las plantillas dentro de la carpeta templates, incluyendo los deployments del frontend y backend, los servicios de red, el Ingress y la base de datos.
 
 Si todos los pods se encuentran en estado Running, la aplicación estará disponible a través del Ingress configurado en el clúster. Se puede verificar el estado con los siguientes comandos:
@@ -217,7 +218,7 @@ spec:
       prune: true
       selfHeal: true
 ```
-* **putomated:** Activa la sincronización automática entre Git y el clúster.
+* **automated:** Activa la sincronización automática entre Git y el clúster.
 * **prune: true:** Elimina del clúster los recursos que ya no existan en el repositorio Git.
 * **selfHeal: true:** Si se cambia manualmente algo en Kubernetes, ArgoCD lo vuelve a ajustar al estado definido en Git.
 
