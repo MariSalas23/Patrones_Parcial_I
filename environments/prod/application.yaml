@@ -3,8 +3,10 @@ kind: Application
 metadata:
   name: pedido-app-prod
   namespace: argocd
+
 spec:
   project: default
+
   source:
     repoURL: https://github.com/MariSalas23/Patrones_Parcial_I.git
     targetRevision: main
@@ -13,12 +15,23 @@ spec:
       releaseName: pedido-app
       valueFiles:
         - values-prod.yaml
+
   destination:
     server: https://kubernetes.default.svc
     namespace: pedido-prod
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      name: pedido-postgresql
+      namespace: pedido-prod
+      jsonPointers:
+        - /spec/volumeClaimTemplates
