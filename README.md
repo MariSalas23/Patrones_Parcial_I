@@ -14,7 +14,7 @@ El objetivo del proyecto es demostrar el uso de herramientas modernas de contene
 |---|---|---|
 | Backend | Spring Boot 3 + JPA | 8080 |
 | Frontend | React/Vite + nginx | 80 |
-| Database | PostgreSQL 18 (Bitnami) | 5432 |
+| Database | PostgreSQL (Bitnami) | 5432 |
 
 ### 1.2. Pre-requisitos
 
@@ -237,7 +237,7 @@ Las rutas están configuradas de la siguiente forma:
 
 #### 3.4.1. Frontend
 
-El frontend corresponde a una aplicación desarrollada en React, la cual permite crear, visualizar, editar y eliminar pedidos desde una interfaz web. El acceso se realiza a través de: http://<INGRESS-IP>/
+El frontend corresponde a una aplicación desarrollada en React, la cual permite crear, visualizar, editar y eliminar pedidos desde una interfaz web. El acceso se realiza a través de: *http://INGRESS-IP/*
 
 #### 3.4.2. Backend
 
