@@ -2,11 +2,27 @@
 
 # Parcial I: Patrones Arquitectónicos Avanzados
 
-## 1. Descripción
+## 1. Descripción y Tecnología
 
 Este proyecto implementa una aplicación de gestión de pedidos desplegada sobre Kubernetes utilizando principios de arquitectura cloud-native y GitOps. La solución incluye un frontend, un backend y una base de datos PostgreSQL, gestionados mediante Helm Charts y desplegados automáticamente con ArgoCD. La arquitectura permite mantener entornos separados de desarrollo y producción, facilitando la automatización de despliegues, escalabilidad y consistencia entre ambientes.
 
 El objetivo del proyecto es demostrar el uso de herramientas modernas de contenedorización, orquestación y despliegue continuo, permitiendo administrar la infraestructura y las aplicaciones declarativamente desde un repositorio Git.
+
+### 1.1. Aplicación
+
+| Component | Technology | Port |
+|---|---|---|
+| Backend | Spring Boot 3 + JPA | 8080 |
+| Frontend | React/Vite + nginx | 80 |
+| Database | PostgreSQL 18 (Bitnami) | 5432 |
+
+### 1.2. Pre-requisitos
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [minikube](https://minikube.sigs.k8s.io/docs/start/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [Helm](https://helm.sh/docs/intro/install/)
+- [ArgoCD CLI](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
 
 ## 2. Instalación
 
