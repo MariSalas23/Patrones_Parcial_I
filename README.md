@@ -216,4 +216,6 @@ spec:
 [Click aquí para visualizar](https://youtu.be/Itug-d1ShLg)
 
 ## Referencias
-[1] https://helm.sh/es/
+
+[1] Helm Authors, “Helm,” Helm Documentation. [En línea]. Disponible en: https://helm.sh/es/. [Accedido: 4-mar-2026].
+[2] Argo Project, “Argo CD Documentation,” Argo CD. [En línea]. Disponible en: https://argo-cd.readthedocs.io/en/stable/. [Accedido: 4-mar-2026].
