@@ -34,4 +34,4 @@ spec:
       name: pedido-postgresql
       namespace: pedido-prod
       jsonPointers:
-        - /spec/volumeClaimTemplates
+        - /spec
