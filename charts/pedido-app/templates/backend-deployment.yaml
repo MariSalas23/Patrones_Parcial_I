@@ -33,9 +33,9 @@ spec:
             - secretRef:
                 name: backend-secret
 
-          {{- if .Values.backend.resources }}
+          {{- with .Values.backend.resources }}
           resources:
-{{ toYaml .Values.backend.resources | indent 12 }}
+{{ toYaml . | indent 12 }}
           {{- end }}
 
           volumeMounts:
