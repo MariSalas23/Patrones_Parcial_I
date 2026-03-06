@@ -47,10 +47,10 @@ helm install pedido .
 # Verificar pods
 kubectl get pods
 
-# Abrir acceso externo
+# Abrir acceso externo (dejar corriendo)
 minikube tunnel
 
-# Obtener URL del ingress
+# Obtener URL del ingress (en otra consola y dejar corriendo)
 minikube service ingress-nginx-controller -n ingress-nginx --url
 ```
 
@@ -62,7 +62,58 @@ minikube service ingress-nginx-controller -n ingress-nginx --url
 
 ### 3.1. Cómo instalar el chart manualmente con Helm 
 
-.
+La aplicación se despliega en Kubernetes utilizando Helm. Según [1], esta se trata de una herramienta que permite gestionar recursos de Kubernetes, ayudando a definir, instalar y actualizar aplicaciones de Kubernetes.
+
+En este proyecto se creó un chart principal llamado *pedido-app*, el cual define todos los recursos necesarios para ejecutar la aplicación. Este chart incluye:
+
+* Subchart de PostgreSQL utilizando el chart oficial de Bitnami.
+* Deployment y Service para el backend, encargado de exponer la API de gestión de pedidos.
+* Deployment y Service para el frontend, que permite a los usuarios interactuar con la aplicación.
+* ConfigMap y Secret para manejar la configuración y credenciales de conexión a la base de datos.
+* Ingress para exponer la aplicación externamente.
+* Horizontal Pod Autoscaler (HPA) para escalar automáticamente el backend según el uso de CPU.
+* PersistentVolumeClaim (PVC) para garantizar la persistencia de datos en PostgreSQL.
+
+En general, la estructura del proyecto se organiza mediante un Helm Chart principal (pedido-app) que contiene las plantillas de Kubernetes necesarias para desplegar la aplicación. Dentro del directorio *templates/* se definen los recursos como Deployments y Services para el frontend y backend, ConfigMap y Secret para la configuración y credenciales de la base de datos, Ingress para el acceso externo, HPA para el escalamiento automático del backend y un PVC para la persistencia de datos. La carpeta *charts/* incluye el subchart oficial de PostgreSQL de Bitnami, utilizado como base de datos de la aplicación. Además, los archivos values.yaml, values-dev.yaml y values-prod.yaml permiten parametrizar el despliegue y definir configuraciones específicas para distintos entornos, facilitando la gestión y automatización del despliegue con Helm y ArgoCD.
+
+```
+charts/
+└── pedido-app/
+    ├── charts/
+    │   └── postgresql-15.5.33.tgz
+    ├── templates/
+    │   ├── backend-deployment.yaml
+    │   ├── backend-service.yaml
+    │   ├── configmap.yaml
+    │   ├── frontend-deployment.yaml
+    │   ├── frontend-service.yaml
+    │   ├── hpa.yaml
+    │   ├── ingress.yaml
+    │   ├── pvc.yaml
+    │   └── secret.yaml
+    ├── files/
+    ├── Chart.yaml
+    ├── Chart.lock
+    ├── values.yaml
+    ├── values-dev.yaml
+    └── values-prod.yaml
+```
+
+Para instalar manualmente el chart con Helm, se deben ejecutar los siguientes comandos dentro del directorio del chart:
+
+```Bash
+cd charts/pedido-app
+helm dependency build
+helm install pedido .
+```
+El primer comando descarga e instala las dependencias definidas en el archivo *Chart.yaml*, en este caso el chart de PostgreSQL. El segundo comando instala la aplicación en el clúster de Kubernetes utilizando la configuración definida en el chart. Una vez instalado el chart, Kubernetes creará automáticamente todos los recursos definidos en las plantillas dentro de la carpeta templates, incluyendo los deployments del frontend y backend, los servicios de red, el Ingress y la base de datos.
+
+Si todos los pods se encuentran en estado Running, la aplicación estará disponible a través del Ingress configurado en el clúster. Se puede verificar el estado con los siguientes comandos:
+```Bash
+kubectl get pods
+kubectl get services
+kubectl get ingress
+```
 
 ### 3.2. Cómo está configurado ArgoCD para sincronizar 
 
@@ -88,3 +139,6 @@ kubectl delete ingress pedido-ingress -n default
 ### 3.5. Video de funcionamiento general
 
 [Click aquí para visualizar](https://youtu.be/Itug-d1ShLg)
+
+## Referencias
+[1] https://helm.sh/es/
